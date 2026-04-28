@@ -7,6 +7,7 @@ As aplicações são descritas a partir de um protocolo comum de caracterizaçã
 ## Aplicações analisadas
 
 1. [Istio Bookinfo Application](#1-istio-bookinfo-application)
+2. [eShopOnContainers](#2-eshoponcontainers)
 
 ## 1. Istio Bookinfo Application
 
