@@ -144,119 +144,149 @@ O Istio Bookinfo apresenta uma implementação clara e estruturada de microsserv
 
 Sua principal contribuição para o trabalho está em oferecer uma arquitetura simples, clara e bem documentada de microsserviços, permitindo analisar a separação de responsabilidades, a comunicação entre serviços, o uso de múltiplas versões e a implantação em Kubernetes. A integração com o Istio acrescenta recursos úteis para experimentos de observabilidade, roteamento e resiliência, mas atua como um apoio operacional, não como o foco principal da aplicação.
 
-## eShopOnContainers
+## 2. eShopOnContainers
 
-O **eShopOnContainers** é uma aplicação open source desenvolvida pela Microsoft para demonstrar como construir um sistema de comércio eletrônico utilizando arquitetura de microsserviços em .NET 9.
+### Identificação geral
 
-O sistema simula uma loja virtual completa, com catálogo de produtos, carrinho, pedidos, autenticação, pagamento e promoções. Seu objetivo é servir como referência para aplicações corporativas reais.
+**Nome da aplicação:** eShopOnContainers  
+**Domínio:** aplicação de comércio eletrônico (e-commerce)  
+**Repositório:** https://github.com/dotnet/eShop  
+**Organização responsável:** Microsoft  
+**Finalidade:** demonstração arquitetural de microsserviços corporativos em .NET  
+**Status:** ativo como projeto de referência para arquitetura de microsserviços  
+**Classificação:** aplicação educacional com foco em cenários corporativos reais
+
+O eShopOnContainers é uma aplicação open source desenvolvida pela Microsoft com o objetivo de demonstrar a construção de um sistema de e-commerce baseado em arquitetura de microsserviços. A aplicação simula uma loja virtual completa, incluindo funcionalidades como catálogo de produtos, carrinho de compras, pedidos, autenticação, pagamento e promoções.
+
+Diferentemente de exemplos mais simplificados, o eShop busca representar um cenário mais próximo de sistemas corporativos reais, incorporando padrões modernos de arquitetura distribuída.
 
 ---
 
-### Informações Gerais
+### Estrutura arquitetural
 
-- **Repositório:** https://github.com/dotnet/eShop  
-- **Organização:** Microsoft  
-- **Domínio:** e-commerce  
-- **Finalidade:** exemplo de microsserviços corporativos em .NET  
+O eShopOnContainers é composto por diversos microsserviços independentes, cada um responsável por uma funcionalidade específica do sistema.
 
----
+Principais serviços:
 
-### Estrutura Arquitetural
+- `Catalog.API`: responsável pelo gerenciamento do catálogo de produtos;
+- `Basket.API`: gerencia o carrinho de compras;
+- `Ordering.API`: responsável pelo processamento e gerenciamento de pedidos;
+- `Identity.API`: responsável por autenticação e autorização;
+- `Webhooks.API`: gerencia notificações externas via webhooks;
 
-A aplicação é composta por diversos microsserviços, incluindo:
+A arquitetura apresenta:
 
-- **Catalog.API** – catálogo de produtos  
-- **Basket.API** – carrinho de compras  
-- **Ordering.API** – gerenciamento de pedidos  
-- **Webhooks.API** – webhooks  
-- **Identity.API** – autenticação e autorização  
+- separação clara entre frontend e backend;
+- uso de API Gateway para centralizar o acesso;
+- utilização de BFF (Backend for Frontend) para adaptação de dados a diferentes clientes;
+- baixo acoplamento entre serviços.
 
-Há uma separação clara entre **front-end** e **back-end**, além da presença de:
+A comunicação entre os serviços é híbrida:
 
-- **API Gateway**
-- **BFF (Backend for Frontend)** – adapta dados para diferentes clientes  
+- síncrona via HTTP/REST e gRPC;
+- assíncrona via mensageria (RabbitMQ ou Azure Service Bus).
 
-### Comunicação
-
-A comunicação entre serviços é híbrida:
-
-- **Síncrona:** HTTP/REST e gRPC  
-- **Assíncrona:** RabbitMQ ou Azure Service Bus  
+Essa abordagem permite maior escalabilidade e resiliência, além de facilitar a evolução independente dos serviços.
 
 ---
 
 ### Implementação
 
-- **Linguagem:** C#  
-- **Framework:** ASP.NET Core / .NET 9  
-- **Front-end:** Blazor Web App  
+A aplicação é desenvolvida majoritariamente utilizando tecnologias do ecossistema .NET.
 
-O projeto é altamente padronizado, pois a maioria dos serviços utiliza as mesmas tecnologias.
+Tecnologias observadas:
 
----
+- C#;
+- ASP.NET Core;
+- .NET 9;
+- Blazor Web App (frontend).
 
-### Dados e Persistência
+Características observadas:
 
-Segue o padrão **database per service**, onde cada microsserviço possui seu próprio banco:
-
-- **SQL Server:** catálogo, pedidos, marketing e autenticação  
-- **Redis:** carrinho e cache  
-- **RabbitMQ / Azure Service Bus:** mensageria  
-
----
-
-### Implantação
-
-O projeto oferece suporte completo para:
-
-- Dockerfiles individuais  
-- docker-compose  
-- Kubernetes  
-- Azure Kubernetes Service (AKS)  
-
-### Observabilidade
-
-Inclui integração com:
-
-- OpenTelemetry  
-- logs centralizados  
-- tracing distribuído  
-- métricas para monitoramento  
+- padronização tecnológica entre os serviços;
+- organização modular por microsserviço;
+- uso de padrões arquiteturais modernos;
+- forte integração com ferramentas do ecossistema Microsoft.
 
 ---
 
-### Casos de Uso para Estudo
+### Dados e persistência
 
-O eShopOnContainers é muito adequado para estudos de:
+O eShopOnContainers adota o padrão **database per service**, no qual cada microsserviço possui seu próprio banco de dados.
 
-- Docker e Kubernetes  
-- API Gateway e BFF  
-- mensageria e arquitetura orientada a eventos  
-- database per service  
-- observabilidade e tracing distribuído  
-- testes de desempenho, escalabilidade e resiliência  
+Tecnologias utilizadas:
 
----
+- SQL Server para serviços como catálogo, pedidos e autentação;
+- Redis para cache e gerenciamento do carrinho;
+- RabbitMQ ou Azure Service Bus para comunicação assíncrona.
 
-### Vantagens
+Características:
 
-Uma das principais vantagens do eShop é reunir, em uma única aplicação, vários conceitos importantes de microsserviços, como:
-
-- API Gateway  
-- mensageria  
-- banco por serviço  
-- Docker e Kubernetes  
-- observabilidade  
-
-Tudo isso de forma organizada e próxima de um ambiente corporativo real, tornando-o excelente para estudo e experimentação.
+- isolamento de dados por serviço;
+- maior independência entre microsserviços;
+- suporte a escalabilidade e resiliência;
+- uso combinado de armazenamento relacional e em memória.
 
 ---
 
-### Limitações
+### Implantação e operação
 
-- Alta complexidade de implantação  
-- Forte dependência do ecossistema **.NET** e **Azure**  
-- Pode ser difícil para equipes sem experiência nessas tecnologias
+A aplicação possui suporte completo a ambientes conteinerizados e orquestrados.
+
+Recursos disponíveis:
+
+- Dockerfiles individuais para cada serviço;
+- suporte a docker-compose;
+- implantação em Kubernetes;
+- integração com Azure Kubernetes Service (AKS).
+
+Recursos de observabilidade:
+
+- OpenTelemetry para coleta de dados;
+- logs centralizados;
+- tracing distribuído;
+- métricas de monitoramento.
+
+Recursos operacionais:
+
+- suporte a escalabilidade horizontal;
+- integração com pipelines de CI/CD;
+- monitoramento de serviços distribuídos.
+
+A complexidade de implantação é considerada alta, devido à quantidade de serviços e à infraestrutura necessária.
+
+---
+
+### Adequação para uso em atividades de laboratório
+
+**Adequação para Kubernetes:** excelente  
+**Adequação para observabilidade:** excelente  
+**Adequação para testes de desempenho:** excelente  
+**Adequação para testes de resiliência:** excelente  
+**Complexidade operacional:** alta  
+
+Vantagens:
+
+- arquitetura próxima de sistemas reais;
+- uso de múltiplos padrões de microsserviços;
+- forte integração com ferramentas modernas;
+- ideal para estudos avançados de sistemas distribuídos;
+- suporte completo a observabilidade e mensageria.
+
+Limitações:
+
+- alta complexidade de configuração;
+- forte dependência do ecossistema .NET e Azure;
+- curva de aprendizado elevada;
+- maior dificuldade para execução em ambientes limitados.
+
+---
+
+### Conclusão
+
+O eShopOnContainers apresenta uma arquitetura robusta e completa de microsserviços, sendo altamente adequado para estudos avançados em sistemas distribuídos. Sua principal contribuição está na representação de um cenário próximo ao ambiente corporativo real, permitindo explorar aspectos como comunicação híbrida, mensageria, observabilidade e escalabilidade.
+
+Apesar de sua complexidade, o projeto se destaca como uma referência sólida para compreensão de arquiteturas modernas baseadas em microsserviços.
 
 ## Referências
 
