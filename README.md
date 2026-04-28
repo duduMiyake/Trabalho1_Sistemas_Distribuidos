@@ -144,7 +144,124 @@ O Istio Bookinfo apresenta uma implementação clara e estruturada de microsserv
 
 Sua principal contribuição para o trabalho está em oferecer uma arquitetura simples, clara e bem documentada de microsserviços, permitindo analisar a separação de responsabilidades, a comunicação entre serviços, o uso de múltiplas versões e a implantação em Kubernetes. A integração com o Istio acrescenta recursos úteis para experimentos de observabilidade, roteamento e resiliência, mas atua como um apoio operacional, não como o foco principal da aplicação.
 
+## eShopOnContainers
+
+O **eShopOnContainers** é uma aplicação open source desenvolvida pela Microsoft para demonstrar como construir um sistema de comércio eletrônico utilizando arquitetura de microsserviços em .NET 9.
+
+O sistema simula uma loja virtual completa, com catálogo de produtos, carrinho, pedidos, autenticação, pagamento e promoções. Seu objetivo é servir como referência para aplicações corporativas reais.
+
+---
+
+### Informações Gerais
+
+- **Repositório:** https://github.com/dotnet/eShop  
+- **Organização:** Microsoft  
+- **Domínio:** e-commerce  
+- **Finalidade:** exemplo de microsserviços corporativos em .NET  
+
+---
+
+## Estrutura Arquitetural
+
+A aplicação é composta por diversos microsserviços, incluindo:
+
+- **Catalog.API** – catálogo de produtos  
+- **Basket.API** – carrinho de compras  
+- **Ordering.API** – gerenciamento de pedidos  
+- **Webhooks.API** – webhooks  
+- **Identity.API** – autenticação e autorização  
+
+Há uma separação clara entre **front-end** e **back-end**, além da presença de:
+
+- **API Gateway**
+- **BFF (Backend for Frontend)** – adapta dados para diferentes clientes  
+
+### Comunicação
+
+A comunicação entre serviços é híbrida:
+
+- **Síncrona:** HTTP/REST e gRPC  
+- **Assíncrona:** RabbitMQ ou Azure Service Bus  
+
+---
+
+## Implementação
+
+- **Linguagem:** C#  
+- **Framework:** ASP.NET Core / .NET 9  
+- **Front-end:** Blazor Web App  
+
+O projeto é altamente padronizado, pois a maioria dos serviços utiliza as mesmas tecnologias.
+
+---
+
+## Dados e Persistência
+
+Segue o padrão **database per service**, onde cada microsserviço possui seu próprio banco:
+
+- **SQL Server:** catálogo, pedidos, marketing e autenticação  
+- **Redis:** carrinho e cache  
+- **RabbitMQ / Azure Service Bus:** mensageria  
+
+---
+
+## Implantação
+
+O projeto oferece suporte completo para:
+
+- Dockerfiles individuais  
+- docker-compose  
+- Kubernetes  
+- Azure Kubernetes Service (AKS)  
+
+### Observabilidade
+
+Inclui integração com:
+
+- OpenTelemetry  
+- logs centralizados  
+- tracing distribuído  
+- métricas para monitoramento  
+
+---
+
+## Casos de Uso para Estudo
+
+O eShopOnContainers é muito adequado para estudos de:
+
+- Docker e Kubernetes  
+- API Gateway e BFF  
+- mensageria e arquitetura orientada a eventos  
+- database per service  
+- observabilidade e tracing distribuído  
+- testes de desempenho, escalabilidade e resiliência  
+
+---
+
+## Vantagens
+
+Uma das principais vantagens do eShop é reunir, em uma única aplicação, vários conceitos importantes de microsserviços, como:
+
+- API Gateway  
+- mensageria  
+- banco por serviço  
+- Docker e Kubernetes  
+- observabilidade  
+
+Tudo isso de forma organizada e próxima de um ambiente corporativo real, tornando-o excelente para estudo e experimentação.
+
+---
+
+## Limitações
+
+- Alta complexidade de implantação  
+- Forte dependência do ecossistema **.NET** e **Azure**  
+- Pode ser difícil para equipes sem experiência nessas tecnologias
+
 ## Referências
 
 - [Istio: Bookinfo Application](https://istio.io/latest/docs/examples/bookinfo/)
 - [Repositório oficial do Istio](https://github.com/istio/istio)
+
+
+
