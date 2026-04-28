@@ -161,7 +161,7 @@ O sistema simula uma loja virtual completa, com catálogo de produtos, carrinho,
 
 ---
 
-## Estrutura Arquitetural
+### Estrutura Arquitetural
 
 A aplicação é composta por diversos microsserviços, incluindo:
 
@@ -185,7 +185,7 @@ A comunicação entre serviços é híbrida:
 
 ---
 
-## Implementação
+### Implementação
 
 - **Linguagem:** C#  
 - **Framework:** ASP.NET Core / .NET 9  
@@ -195,7 +195,7 @@ O projeto é altamente padronizado, pois a maioria dos serviços utiliza as mesm
 
 ---
 
-## Dados e Persistência
+### Dados e Persistência
 
 Segue o padrão **database per service**, onde cada microsserviço possui seu próprio banco:
 
@@ -205,7 +205,7 @@ Segue o padrão **database per service**, onde cada microsserviço possui seu pr
 
 ---
 
-## Implantação
+### Implantação
 
 O projeto oferece suporte completo para:
 
@@ -225,7 +225,7 @@ Inclui integração com:
 
 ---
 
-## Casos de Uso para Estudo
+### Casos de Uso para Estudo
 
 O eShopOnContainers é muito adequado para estudos de:
 
@@ -238,7 +238,7 @@ O eShopOnContainers é muito adequado para estudos de:
 
 ---
 
-## Vantagens
+### Vantagens
 
 Uma das principais vantagens do eShop é reunir, em uma única aplicação, vários conceitos importantes de microsserviços, como:
 
@@ -252,7 +252,7 @@ Tudo isso de forma organizada e próxima de um ambiente corporativo real, tornan
 
 ---
 
-## Limitações
+### Limitações
 
 - Alta complexidade de implantação  
 - Forte dependência do ecossistema **.NET** e **Azure**  
