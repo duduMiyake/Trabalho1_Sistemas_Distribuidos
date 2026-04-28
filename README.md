@@ -164,6 +164,8 @@ Diferentemente de exemplos mais simplificados, o eShop busca representar um cen�
 
 ### Estrutura arquitetural
 
+<img src="./assets/eShop.png" alt="Diagrama arquitetural do eShopOnContainers" width="100%">
+
 O eShopOnContainers é composto por diversos microsserviços independentes, cada um responsável por uma funcionalidade específica do sistema.
 
 Principais serviços:
