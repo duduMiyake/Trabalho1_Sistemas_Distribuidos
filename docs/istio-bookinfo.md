@@ -1,0 +1,142 @@
+# Istio Bookinfo Application
+
+[Voltar ao README](../README.md)
+
+## Identificação geral
+
+**Nome da aplicação:** Istio Bookinfo  
+**Domínio:** aplicação web de catálogo e avaliação de livros, semelhante a uma livraria online simplificada  
+**Repositório:** [github.com/istio/istio/tree/master/samples/bookinfo](https://github.com/istio/istio/tree/master/samples/bookinfo)  
+**Documentação oficial:** [Istio Bookinfo Application](https://istio.io/latest/docs/examples/bookinfo/)  
+**Organização responsável:** Istio  
+**Finalidade:** demonstração tecnológica para estudo de microsserviços e service mesh  
+**Status:** ativo como exemplo oficial mantido na documentação do Istio  
+**Classificação:** aplicação educacional e ambiente sandbox para observabilidade, roteamento de tráfego e resiliência
+
+O Bookinfo é uma aplicação de exemplo disponibilizada pelo projeto Istio para demonstrar recursos de service mesh em uma arquitetura de microsserviços. A aplicação simula uma página de livro com descrição, detalhes, avaliações e notas, funcionando como um domínio de e-commerce simplificado.
+
+## Estrutura arquitetural
+
+O Istio Bookinfo é composto por quatro microsserviços principais:
+
+- `productpage`: responsável pelo frontend da aplicação; chama os serviços `details` e `reviews` para montar a página exibida ao usuário.
+- `details`: fornece informações do livro, como ISBN, número de páginas e dados descritivos.
+- `reviews`: gerencia avaliações dos usuários e pode chamar o serviço `ratings`.
+- `ratings`: fornece as notas associadas às avaliações.
+
+<img src="../assets/diagrama_arquitetural_istio.png" alt="Diagrama arquitetural do Istio Bookinfo" width="100%">
+
+*Figura 1: visão geral da arquitetura do Istio Bookinfo, destacando os principais microsserviços, suas comunicações e os componentes de observabilidade associados ao ambiente Istio.*
+
+A arquitetura apresenta separação clara entre frontend e backend, com cada funcionalidade tratada por um serviço independente. A comunicação entre os serviços ocorre de forma síncrona via HTTP. Quando executada com Istio, essa comunicação é intermediada por proxies sidecar, que permitem controlar tráfego, coletar telemetria e aplicar políticas sem alterar diretamente o código dos serviços.
+
+Características principais:
+
+- separação clara de responsabilidades entre serviços;
+- comunicação síncrona via HTTP;
+- uso de service mesh para controle de tráfego, telemetria e políticas;
+- suporte a múltiplas versões do serviço `reviews` (`v1`, `v2` e `v3`);
+- ausência de filas ou mecanismos de mensageria;
+- baixa dependência entre serviços, favorecendo experimentos controlados.
+
+As versões do serviço `reviews` são usadas para demonstrar roteamento e testes de tráfego:
+
+- `reviews v1`: não chama o serviço `ratings`;
+- `reviews v2`: chama `ratings` e exibe estrelas pretas;
+- `reviews v3`: chama `ratings` e exibe estrelas vermelhas.
+
+## Implementação
+
+Seus microsserviços são implementados em diferentes linguagens. Essa característica é relevante para o estudo de microsserviços, já que demonstra como serviços independentes podem coexistir mesmo quando usam stacks distintas.
+
+Tecnologias observadas:
+
+- Python;
+- Ruby;
+- Java;
+- Node.js.
+
+Cada microsserviço possui sua própria base de código e pode utilizar frameworks e dependências específicas. O foco do exemplo não está em regras de negócio complexas, mas na demonstração de comunicação entre serviços, controle de versões e integração com o Istio.
+
+Características observadas:
+
+- alto grau de desacoplamento entre serviços;
+- organização modular por serviço;
+- heterogeneidade tecnológica;
+- presença de múltiplas versões de serviço para testes de roteamento.
+
+## Dados e persistência
+
+O Bookinfo não possui uma arquitetura complexa de persistência de dados. Os dados utilizados pela aplicação são simples, estáticos ou simulados, e não há dependência central de bancos de dados complexos.
+
+Características:
+
+- uso limitado de armazenamento de dados;
+- ausência de bancos de dados relacionais ou distribuídos na arquitetura principal;
+- dados simplificados para apoiar a demonstração da aplicação;
+- foco maior na comunicação entre serviços do que na gestão de dados.
+
+Essa escolha torna o Bookinfo diferente de sistemas reais de produção, mas facilita seu uso em laboratórios. Como a camada de dados é simples, os experimentos podem se concentrar em tópicos como roteamento, falhas, observabilidade, latência e comportamento da malha de serviços.
+
+## Implantação e operação
+
+A aplicação possui forte suporte a ambientes conteinerizados e orquestrados:
+
+- suporte a Docker;
+- suporte completo a Kubernetes;
+- manifestos de implantação em YAML;
+- integração direta com o Istio.
+
+Recursos de observabilidade associados ao ecossistema Istio:
+
+- Prometheus para coleta de métricas;
+- Grafana para visualização de métricas;
+- Jaeger para tracing distribuído;
+- Kiali para visualização da topologia e comunicação entre serviços.
+
+Recursos de resiliência e controle de tráfego que podem ser explorados:
+
+- fault injection;
+- traffic shifting;
+- canary deployment;
+- circuit breaking;
+- roteamento por versão;
+- análise de comportamento sob falhas controladas.
+
+A complexidade de implantação é considerada média. A aplicação em si é simples, mas a configuração do Istio e dos componentes de observabilidade exige familiaridade com Kubernetes, namespaces, gateways, destination rules, virtual services e injeção de sidecars.
+
+## Adequação para uso em atividades de laboratório
+
+**Adequação para Kubernetes:** excelente  
+**Adequação para observabilidade:** excelente  
+**Adequação para testes de desempenho:** boa  
+**Adequação para testes de resiliência:** excelente  
+**Complexidade operacional:** média
+
+Vantagens:
+
+- arquitetura clara de microsserviços;
+- forte integração com Kubernetes;
+- excelente suporte a observabilidade;
+- ideal para experimentos de resiliência e controle de tráfego;
+- múltiplas versões de serviço prontas para testes;
+- amplamente utilizado em contextos acadêmicos e tutoriais técnicos.
+
+Limitações:
+
+- aplicação simplificada;
+- domínio pouco realista quando comparado a sistemas de produção;
+- baixa complexidade de dados;
+- ausência de fluxos completos de negócio;
+- não representa integralmente os desafios de um sistema corporativo em produção.
+
+## Conclusão
+
+O Istio Bookinfo apresenta uma implementação clara e estruturada de microsserviços, sendo especialmente adequado para estudos de comunicação entre serviços, observabilidade e resiliência em ambientes Kubernetes. Apesar de seu caráter didático, oferece um ambiente controlado e rico para experimentação, tornando-se altamente relevante para uso em atividades de laboratório.
+
+Sua principal contribuição para o trabalho está em oferecer uma arquitetura simples, clara e bem documentada de microsserviços, permitindo analisar a separação de responsabilidades, a comunicação entre serviços, o uso de múltiplas versões e a implantação em Kubernetes. A integração com o Istio acrescenta recursos úteis para experimentos de observabilidade, roteamento e resiliência, mas atua como um apoio operacional, não como o foco principal da aplicação.
+
+## Referências
+
+- [Istio: Bookinfo Application](https://istio.io/latest/docs/examples/bookinfo/)
+- [Repositório oficial do Istio](https://github.com/istio/istio)
