@@ -24,7 +24,7 @@ O Istio Bookinfo é composto por quatro microsserviços principais:
 - `reviews`: gerencia avaliações dos usuários e pode chamar o serviço `ratings`.
 - `ratings`: fornece as notas associadas às avaliações.
 
-<img src="../assets/diagrama_arquitetural_istio.png" alt="Diagrama arquitetural do Istio Bookinfo" width="100%">
+<img src="../assets/diagrama_arquitetural_istio.svg" alt="Diagrama arquitetural do Istio Bookinfo" width="100%">
 
 *Figura 1: visão geral da arquitetura do Istio Bookinfo, destacando os principais microsserviços, suas comunicações e os componentes de observabilidade associados ao ambiente Istio.*
 
